@@ -13,8 +13,7 @@ function quit_kubeshell() {
 trap quit_kubeshell SIGINT
 
 while true; do
-	echo -n "kubeshell $ "	
-	read kubectl_command
+	read -erp "kubeshell$ " kubectl_command
 
 	case "$kubectl_command" in 
 		"exit"|"quit"|":q")
