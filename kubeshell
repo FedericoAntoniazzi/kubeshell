@@ -3,6 +3,14 @@
 set -o nounset
 set -o errexit
 set -o pipefail
+stty -echoctl # Hide ^C
+
+function quit_kubeshell() {
+	echo -e "\rExiting kubeshell..."
+	exit 0
+}
+
+trap quit_kubeshell SIGINT
 
 while true; do
 	echo -n "kubeshell $ "	
@@ -10,7 +18,7 @@ while true; do
 
 	case "$kubectl_command" in 
 		"exit")
-			exit
+			quit_kubeshell
 			;;
 		*)
 			kubectl $kubectl_command
