@@ -17,7 +17,7 @@ while true; do
 	read kubectl_command
 
 	case "$kubectl_command" in 
-		"exit")
+		"exit"|"quit"|":q")
 			quit_kubeshell
 			;;
 		*)
