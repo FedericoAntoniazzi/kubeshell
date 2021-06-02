@@ -4,7 +4,7 @@ Interactive kubectl shell written in bash.
 
 ## Example of usage
 
-```bash
+```
 ❯ kubeshell
 kubeshell$ get nodes
 NAME       STATUS   ROLES                  AGE   VERSION
@@ -35,20 +35,20 @@ Exiting kubeshell...
 ```
 ## Install
 1. Download the repository
-```
+```bash
 git clone https://github.com/FedericoAntoniazzi/kubeshell
 ```
 2. Go into the kubeshell folder
-```
+```bash
 cd kubeshell
 ```
 3. Install using `make`
-```
+```bash
 make install
 ```
 
 ## Uninstall
 To uninstall using the provided make command
-```
+```bash
 make uninstall
 ```
