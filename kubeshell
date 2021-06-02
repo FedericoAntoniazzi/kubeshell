@@ -21,6 +21,7 @@ while true; do
 			quit_kubeshell
 			;;
 		*)
+			# shellcheck disable=SC2086
 			kubectl $kubectl_command
 			;;
 	esac
