@@ -6,6 +6,7 @@ Interactive kubectl shell written in bash.
 | Flag | Short | Description |
 | ---- | ----- | ----------- |
 | `--help` | `-h` | Display the help message |
+| `--namespace` | `-n` or `-ns` | Set a namespace for the session |
 
 ## Example of usage
 
