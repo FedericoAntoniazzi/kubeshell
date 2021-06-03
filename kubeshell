@@ -6,8 +6,16 @@ stty -echoctl # Hide ^C
 
 trap quit_kubeshell SIGINT
 
+NAMESPACE_BKP=""
+
 function quit_kubeshell() {
 	echo -e "\rExiting kubeshell..."
+
+	# Restoring initial namespace
+	if [[ "$NAMESPACE_BKP" != "" ]]; then
+		kubectl config set-context --current --namespace="$NAMESPACE_BKP"
+	fi
+
 	exit 0
 }
 
@@ -20,6 +28,10 @@ function show_kubeshell_help() {
 	echo -e
 	echo -e "Available flags:"
 	echo -e "  -h, --help\t\tDisplay this help"
+}
+
+function backup_current_namespace() {
+	NAMESPACE_BKP="$(kubectl config view --minify --output 'jsonpath={..namespace}')"
 }
 
 function interactive_loop() {
@@ -49,6 +61,7 @@ function parse_args() {
 				exit 0
 				;;
 			-n|-ns|--namespace)
+				backup_current_namespace
 				local NAMESPACE="$2"
 				echo "> Setting namespace/$NAMESPACE"
 				kubectl config set-context --current --namespace="$NAMESPACE"
