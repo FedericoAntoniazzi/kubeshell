@@ -4,23 +4,27 @@ set -o nounset
 set -o pipefail
 stty -echoctl # Hide ^C
 
+trap quit_kubeshell SIGINT
+
 function quit_kubeshell() {
 	echo -e "\rExiting kubeshell..."
 	exit 0
 }
 
-trap quit_kubeshell SIGINT
+function interactive_loop() {
+	while true; do
+		read -erp "kubeshell$ " kubectl_command
 
-while true; do
-	read -erp "kubeshell$ " kubectl_command
+		case "$kubectl_command" in
+			"exit"|"quit"|":q")
+				quit_kubeshell
+				;;
+			*)
+				# shellcheck disable=SC2086
+				kubectl $kubectl_command
+				;;
+		esac
+	done
+}
 
-	case "$kubectl_command" in 
-		"exit"|"quit"|":q")
-			quit_kubeshell
-			;;
-		*)
-			# shellcheck disable=SC2086
-			kubectl $kubectl_command
-			;;
-	esac
-done
+interactive_loop
