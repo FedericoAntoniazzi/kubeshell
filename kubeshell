@@ -40,11 +40,20 @@ function interactive_loop() {
 
 function parse_args() {
 	while [[ $# -gt 0 ]]; do
+
 		key="$1"
+
 		case $key in
 			-h|--help)
 				show_kubeshell_help
 				exit 0
+				;;
+			-n|-ns|--namespace)
+				local NAMESPACE="$2"
+				echo "> Setting namespace/$NAMESPACE"
+				kubectl config set-context --current --namespace="$NAMESPACE"
+				shift
+				shift
 				;;
 			*)
 				# Ignore unknown argument
