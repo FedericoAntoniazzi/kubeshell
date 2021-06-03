@@ -2,6 +2,11 @@
 
 Interactive kubectl shell written in bash.
 
+## Available flags
+| Flag | Short | Description |
+| ---- | ----- | ----------- |
+| `--help` | `-h` | Display the help message |
+
 ## Example of usage
 
 ```

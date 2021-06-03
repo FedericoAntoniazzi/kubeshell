@@ -11,6 +11,17 @@ function quit_kubeshell() {
 	exit 0
 }
 
+function show_kubeshell_help() {
+	echo -e "Usage: kubeshell"
+	echo -e "kubeshell is an interactive shell for running kubectl commands."
+	echo -e
+	echo -e "Note: Kubeshell it's just an interactive shell built on top of kubectl."
+	echo -e "\tTo change its behavior change kubectl settings"
+	echo -e
+	echo -e "Available flags:"
+	echo -e "  -h, --help\t\tDisplay this help"
+}
+
 function interactive_loop() {
 	while true; do
 		read -erp "kubeshell$ " kubectl_command
@@ -27,4 +38,21 @@ function interactive_loop() {
 	done
 }
 
+function parse_args() {
+	while [[ $# -gt 0 ]]; do
+		key="$1"
+		case $key in
+			-h|--help)
+				show_kubeshell_help
+				exit 0
+				;;
+			*)
+				# Ignore unknown argument
+				shift
+				;;
+		esac
+	done
+}
+
+parse_args "$@"
 interactive_loop
