@@ -28,6 +28,7 @@ function show_kubeshell_help() {
 	echo -e
 	echo -e "Available flags:"
 	echo -e "  -h, --help\t\tDisplay this help"
+	echo -e "  -n,-ns, --namespace\tSet a namespace to use during the kubeshell session"
 }
 
 function backup_current_namespace() {
