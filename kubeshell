@@ -10,12 +10,7 @@ NAMESPACE_BKP=""
 
 function quit_kubeshell() {
 	echo -e "\rExiting kubeshell..."
-
-	# Restoring initial namespace
-	if [[ "$NAMESPACE_BKP" != "" ]]; then
-		kubectl config set-context --current --namespace="$NAMESPACE_BKP"
-	fi
-
+	restore_previous_namespace
 	exit 0
 }
 
@@ -33,6 +28,12 @@ function show_kubeshell_help() {
 
 function backup_current_namespace() {
 	NAMESPACE_BKP="$(kubectl config view --minify --output 'jsonpath={..namespace}')"
+}
+
+function restore_previous_namespace() {
+	if [[ "$NAMESPACE_BKP" != "" ]]; then
+		kubectl config set-context --current --namespace="$NAMESPACE_BKP"
+	fi
 }
 
 function interactive_loop() {
